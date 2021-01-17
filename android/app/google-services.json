@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "90468268463",
+    "project_id": "shabbatfirebase",
+    "storage_bucket": "shabbatfirebase.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:90468268463:android:7a97c173103f9d130a975a",
+        "android_client_info": {
+          "package_name": "com.example.shabbatttt"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "90468268463-p6q54leb4cs0s7g84r838gi9bdv1bo25.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAqQaRDwuHAfZY1QwBLQghS-psRQDMZOMc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "90468268463-p6q54leb4cs0s7g84r838gi9bdv1bo25.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
