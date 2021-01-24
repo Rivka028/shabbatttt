@@ -14,6 +14,7 @@ Future signInFB() async {
   print(profile);
   return profile;
 }
+//try to check
 final FirebaseAuth _auth = FirebaseAuth.instance;
 final GoogleSignIn googleSignIn = GoogleSignIn();
 
