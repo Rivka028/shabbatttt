@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:shabbatttt/sign_in.dart';
+
+import 'package:shabbatttt/login_page.dart';
 
 
 class Welcome extends StatefulWidget {
@@ -8,8 +11,6 @@ class Welcome extends StatefulWidget {
 
 class _Welcome extends State<Welcome> {
   @override
-  Map data = {};
-
   Widget build(BuildContext context) {
       return Scaffold(
           body: SafeArea(
@@ -19,17 +20,15 @@ class _Welcome extends State<Welcome> {
                 image: AssetImage('assets/kotel.jpg'),
                 fit: BoxFit.cover,
           ),
-        )
+        ),
             child: Padding(
               padding: const EdgeInsets.fromLTRB(0, 120.0, 0, 0),
                 child: Column(
                   children: <Widget>[
                     FlatButton.icon(
                      onPressed: () async {
-                       dynamic result = await Navigator.pushNamed(context, '/sign_in');
-                          setState(() {
-                          });
-                          },
+                      Navigator.pushNamed(context, "/login_page");
+    },
                               icon: Icon(Icons.edit_location),
                               label: Text('log in guest'),
                           ),
@@ -38,7 +37,7 @@ class _Welcome extends State<Welcome> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         Text(
-                          data['sign_in'],
+                       "hii",
                           style: TextStyle(
                             fontSize: 28.0,
                             letterSpacing: 2.0,
