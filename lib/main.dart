@@ -6,7 +6,9 @@ import 'welcome.dart';
 
 
 void main() async{
+
   await Firebase.initializeApp();
+
   runApp(MaterialApp(
       initialRoute: '/',
       routes: {
