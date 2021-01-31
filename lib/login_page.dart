@@ -12,6 +12,9 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final _fbSignIn = FacebookLogin();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,45 +34,70 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
   }
+
   Widget _signInButtonFacebook() {
     return OutlineButton(
-        splashColor: Colors.grey,
-        onPressed: () {
-          Authenticate auth = Authenticate();
-          auth.signInFB().whenComplete((onComplete) {
-            Navigator.of(context).push(MaterialPageRoute(builder:
-                (context) => Welcome()));
-          });
-        },
-    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
-    highlightElevation: 0,
-    borderSide: BorderSide(color: Colors.grey),
-    child: Padding(
-      padding: const EdgeInsets.fromLTRB(0, 20, 0, 10),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Image(image: AssetImage('assets/Facebook_Logo.png'), height: 35.0),
-          Padding(
-            padding: const EdgeInsets.only(left: 20),
-            child: Text(
-              'Sign in with Facebook',
-            style: TextStyle(
-             fontSize: 20,
-              color: Colors.grey,
-            ),
-            ),
-          )
-        ],
+      splashColor: Colors.grey,
+      onPressed: signInWithFaceBook,
+      // onPressed: () async{
+      //   FirebaseAuth auth = FirebaseAuth.instance;
+      //   final _fbSignIn = FacebookLogin();
+      //   final FacebookLoginResult result = await _fbSignIn.logIn(['email']);
+      //   auth.signInFB().whenComplete((onComplete) {
+      //     Navigator.of(context).push(MaterialPageRoute(builder:
+      //         (context) => Welcome()));
+      //   });
+      // },
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
+      highlightElevation: 0,
+      borderSide: BorderSide(color: Colors.grey),
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(0, 20, 0, 10),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Image(image: AssetImage('assets/Facebook_Logo.png'), height: 35.0),
+            Padding(
+              padding: const EdgeInsets.only(left: 20),
+              child: Text(
+                'Sign in with Facebook',
+                style: TextStyle(
+                  fontSize: 20,
+                  color: Colors.grey,
+                ),
+              ),
+            )
+          ],
+        ),
       ),
-    ),  );
+    );
   }
+
+  Future<void> signInWithFaceBook() async {
+    final FacebookLoginResult result = await _fbSignIn.logIn(['email']);
+    if (result.status == FacebookLoginStatus.loggedIn) {
+      final FacebookAccessToken accessToken = result.accessToken;
+      final credential = FacebookAuthProvider.credential(accessToken.token);
+      try {
+        _auth.signInWithCredential(credential).then((value) => {
+              Navigator.of(context)
+                  .push(MaterialPageRoute(builder: (context) => Welcome()))
+            });
+      } on FirebaseAuthException catch (e) {
+        print('Failed with error code: ${e.code}');
+        if (e.code == "account-exists-with-different-credential") {
+          // The account already exists with a different credential
+        }
+      }
+    }
+  }
+
   Widget _signInButton() {
     return OutlineButton(
       splashColor: Colors.grey,
       onPressed: () {
-        signInWithGoogle().then((result){
+        signInWithGoogle().then((result) {
           if (result != null) {
             Navigator.of(context).push(
               MaterialPageRoute(
