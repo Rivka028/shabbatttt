@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:shabbatttt/sign_in.dart';
 import 'package:shabbatttt/FirstScreen.dart';
+import 'package:shabbatttt/welcome.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 
@@ -33,16 +35,10 @@ class _LoginPageState extends State<LoginPage> {
     return OutlineButton(
         splashColor: Colors.grey,
         onPressed: () {
-          signInWithFacebook().then((result){
-            if (result != null) {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) {
-                    return FirstScreen();
-                  },
-                ),
-              );
-            }
+          Authenticate auth = Authenticate();
+          auth.signInFB().whenComplete((onComplete) {
+            Navigator.of(context).push(MaterialPageRoute(builder:
+                (context) => Welcome()));
           });
         },
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
