@@ -1,21 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
-import 'package:flutter_facebook_login/flutter_facebook_login.dart';
-import 'package:http/http.dart';
-import 'dart:convert';
 
-final fbLogin = FacebookLogin();
-Future signInFB() async {
-  final FacebookLoginResult result = await fbLogin.logIn(["email"]);
-  final String token = result.accessToken.token;
-  final response = await get('https://graph.facebook.com/v2.12/me?fields=name,first_name,last_name,email&access_token=${token}');
-  final profile = jsonDecode(response.body);
-  print(profile);
-  return profile;
-}
-//try to check
+
+
 final FirebaseAuth _auth = FirebaseAuth.instance;
 final GoogleSignIn googleSignIn = GoogleSignIn();
 
